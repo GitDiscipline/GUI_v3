@@ -186,7 +186,7 @@ def ploting4():
         ax2.plot(time,yvalue,label='predicted',linewidth=1,color='blue')
         ax2.set_xlabel('time')
         ax2.set_ylabel('vibration (in/s)')
-        ax2.set_ylim([f0[n1.get()].min(), f0[n1.get()].max()])
+        ax2.set_ylim([-f0[n1.get()].max(), f0[n1.get()].max()])
         ax2.legend(prop={'size':6})
 
         
@@ -246,23 +246,24 @@ def ploting5():
     
     
 
-    val=new1[n1.get()].drop(0)
-    val=val.to_numpy()
-    val=np.asfarray(val,float)
     
-    val1=e0[n1.get()].drop(0)
-    val1=val1.to_numpy()
-    val1=np.asfarray(val1,float)
-    
-    f1, t1, z1= signal.stft(val1,8823.5, nperseg=500)
-    f, t, z= signal.stft(val,8823.5, nperseg=500)
-
     
 
     
 
     lis2=["V-ICV", "V-ICT","V-MRV","V-B1V","V-B2V","V-B3V","V-B5V"]
     if n1.get() in lis2:
+        val=new1[n1.get()]
+        val=val.to_numpy()
+        val=np.asfarray(val,float)
+        
+        val1=e0[n1.get()]
+        val1=val1.to_numpy()
+        val1=np.asfarray(val1,float)
+        
+        f1, t1, z1= signal.stft(val1,8823.5, nperseg=500)
+        f, t, z= signal.stft(val,8823.5, nperseg=500)
+
     
     
         
@@ -289,9 +290,13 @@ def ploting5():
         
 
     else:
-        
+        fig = plt.figure()
+        val=new1[n1.get()]
+        val=val.to_numpy()
+        val=np.asfarray(val,float)
+        f, t, z= signal.stft(val,8823.5, nperseg=500)
 
-        fig, (ax) = plt.subplots(1)
+        #fig, (ax) = plt.subplots(1)
        
         plt.pcolormesh(t,f,abs(z), shading='gouraud')
         plt.xlabel('time')
